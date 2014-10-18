@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Awesome Presentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      body {
+        font-family: 'Helvetica';
+        font-weight: 100;
+      }
+      h1, h2, h3, h4 {
+        font-weight: normal;
+      }
+      a:link, a:visited {
+        color: cyan;
+        text-decoration: none;
+      }
+      .remark-slide-content {
+        background-color: #222;
+        color: #f2f2f2;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Monaco'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Django and Testing
+
+---
+class: center, middle
+
+# Aldiantoro Nugroho
+
+[@kriwil](https://twitter.com/kriwil)
+
+kriwil@gmail.com
+
+kriwil #python-id
+
+---
+class: center, middle
+
+# Django
+
+https://www.djangoproject.com
+
+Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+
+---
+# Testing
+
+---
+# Automated Testing
+
+---
+# Testing
+
+---
+# Testing
+
+"Code without tests is broken as designed."
+
+[Jacob Kaplan-Moss](http://jacobian.org/writing/django-apps-with-buildout/#create-a-test-wrapper)
+---
+# Testing, why?
+
+---
+# Testing, why?
+
+- manual testing is hard
+
+---
+# Testing, why?
+
+- manual testing is hard
+- it takes time
+
+---
+# Testing, why?
+
+- manual testing is hard
+- it takes time
+- bugs should be fixed once for all
+
+---
+# Testing in Django (&lt;1.6)
+
+```bash
+python manage.py test
+```
+
+---
+# Testing in Django (&lt;1.6)
+
+```bash
+python manage.py test
+.....................................
+[snipped]
+----------------------------------------------------------------------
+Ran 484 tests in 13.395s
+
+OK (skipped=1, expected failures=1)
+```
+
+---
+# Testing in Django (>=1.6)
+
+```bash
+Creating test database for alias 'default'...
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+---
+# PSA: upgrade to 1.6 :)
+
+---
+# PSA: upgrade to 1.6 :)
+
+or
+
+https://github.com/jezdez/django-discover-runner
+
+---
+# PSA: upgrade to 1.6 :)
+
+or
+
+https://github.com/jezdez/django-discover-runner
+
+But seriously, upgrade.
+
+---
+# Testing in Django
+
+---
+# What to test?
+
+---
+# What to test?
+
+- ideally: everything
+
+---
+# What to test?
+
+- ideally: everything
+- but there's not such thing as ideal development
+
+---
+# Where to start?
+
+---
+# Where to start?
+- all endpoints
+
+---
+# Where to start?
+- all endpoints
+- bugs
+
+---
+# TDD?
+
+---
+# Data for tests
+
+---
+# Data for tests
+
+http://model-mommy.readthedocs.org/en/latest/
+
+http://factoryboy.readthedocs.org/en/latest/
+
+---
+# factory boy
+```python
+import factory
+from . import models
+
+class UserFactory(factory.Factory):
+    class Meta:
+        model = models.User
+
+    first_name = 'John'
+    last_name = 'Doe'
+    admin = False
+```
+
+```python
+dummy_user = UserFactory()
+```
+
+---
+# model mommy
+```python
+from model_mommy import mommy
+from . import models
+
+dummy_user = mommy.make(
+    User, first_name='John', last_name='Doe', admin=False)
+```
+
+---
+# Some tips
+
+```python
+SOUTH_TESTS_MIGRATE = False
+```
+
+---
+# Some tips
+
+```python
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+)
+```
+
+---
+# Some tips
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        ...
+    }
+}
+```
+
+---
+# What's next?
+
+---
+# What's next?
+
+- coverage
+
+---
+# What's next?
+
+- coverage
+- continuous integration
+
+---
+# Q&amp;A?
+
+
+    </textarea>
+    <script src="static/remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
